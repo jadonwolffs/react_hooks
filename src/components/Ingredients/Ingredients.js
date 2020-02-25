@@ -1,16 +1,37 @@
-import React from 'react';
+import React, { useState } from "react";
 
-import IngredientForm from './IngredientForm';
-import Search from './Search';
+import IngredientForm from "./IngredientForm";
+import IngredientList from "./IngredientList";
+import Search from "./Search";
 
 function Ingredients() {
+  const [ingredients, setIngredients] = useState([]);
+  const removeIngredientHandler = id => {
+    setIngredients(prevIngredients =>
+      prevIngredients.filter(ingredient => ingredient.id !== id)
+    );
+    console.log(ingredients);
+  };
+  const addIngredientHandler = ingredient => {
+    setIngredients(prevIngredients => [
+      ...prevIngredients,
+      {
+        id: Math.random().toString(),
+        ...ingredient
+      }
+    ]);
+    console.log(ingredients);
+  };
   return (
     <div className="App">
-      <IngredientForm />
+      <IngredientForm add={addIngredientHandler} />
 
       <section>
         <Search />
-        {/* Need to add list here! */}
+        <IngredientList
+          ingredients={ingredients}
+          onRemoveItem={removeIngredientHandler}
+        />
       </section>
     </div>
   );
