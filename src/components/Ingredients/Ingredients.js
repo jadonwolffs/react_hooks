@@ -79,9 +79,9 @@ function Ingredients() {
         dispatchHttp({ type: "ERROR", error: error.message });
       });
   }, []);
-  const clearError = () => {
+  const clearError = useMemo(() => {
     dispatchHttp({ type: "CLEAR" });
-  };
+  },[]);
   const ingredientList = useMemo(()=>{
     return (
       <IngredientList
